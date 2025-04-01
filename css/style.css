@@ -1,4 +1,6 @@
 body {
+  --color-subtle: #ccc;
+
   display: grid;
   place-items: center;
   font-family: var(--font-monospace-slab-serif);
@@ -8,8 +10,14 @@ body {
   font-style: italic;
 }
 
-.text-center {
+.t-center {
   text-align: center;
+}
+.t-sm {
+  font-size: var(--font-size-0);
+}
+.t-nowrap {
+  white-space: nowrap;
 }
 
 .container {
@@ -26,6 +34,9 @@ p {
 .logo {
   max-width: 300px;
 }
+.logo-mini {
+  max-width: 30px;
+}
 
 header {
   display: flex;
@@ -41,7 +52,6 @@ section {
 }
 
 h2 {
-  text-align: center;
   font-weight: bold;
 }
 
@@ -56,6 +66,7 @@ h3 {
   align-items: center;
   justify-content: center;
   text-align: center;
+  margin: var(--color-subtle) 0;
 
   &::before, &::after {
     content: "";
@@ -79,4 +90,41 @@ h3 {
   flex-direction: column;
   align-items: center;
   gap: var(--size-fluid-1);
+}
+
+.l-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-4);
+
+  &.l-stack--sm {
+    gap: var(--size-1);
+  }
+}
+
+.l-cluster {
+  display: flex;
+  gap: var(--size-4);
+  justify-content: center;
+  align-items: center;
+
+  &.between {
+    justify-content: space-between;
+  }
+  &.l-cluster--sm {
+    gap: var(--size-1);
+  }
+}
+
+hr {
+  height: 1px;
+  border: none;
+  background-color: var(--color-subtle);
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--size-4);
 }
