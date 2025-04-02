@@ -28,7 +28,7 @@ p {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--size-fluid-4);
-  padding: var(--size-fluid-4) var(--size-fluid-1);
+  padding: var(--size-fluid-4) var(--size-fluid-2);
 }
 
 p {
@@ -73,7 +73,7 @@ h3 {
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin: var(--color-subtle) 0;
+  margin: var(--size-2) 0;
 
   &::before, &::after {
     content: "";
@@ -85,7 +85,7 @@ h3 {
   a {
     text-decoration: none;
     font-weight: bold;
-    margin: 0 var(--size-4);
+    margin: 0 var(--size-2);
     &:hover {
       text-decoration: underline;
     }
