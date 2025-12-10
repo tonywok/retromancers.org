@@ -68,6 +68,23 @@ h3 {
   display: block;
 }
 
+.event-banner {
+  border: 2px solid #c92a2a;
+  padding: var(--size-3);
+  margin: var(--size-4) 0;
+  text-align: center;
+  background: #ffe3e3;
+  color: #c92a2a;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: var(--font-size-2);
+  display: block;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .cta {
   display: flex;
   align-items: center;
