@@ -55,6 +55,16 @@ section {
   gap: var(--size-3)
 }
 
+.image-frame {
+  display: flex;
+  justify-content: center;
+}
+
+.event-image {
+  width: 100%;
+  max-width: 80ch;
+}
+
 h2 {
   font-weight: bold;
 }

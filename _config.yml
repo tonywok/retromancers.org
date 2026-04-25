@@ -1,0 +1,21 @@
+title: Retromancers
+description: A Premodern Magic crew based in Columbus, Ohio.
+url: "https://www.retromancers.org"
+baseurl: ""
+domain: www.retromancers.org
+
+timezone: America/New_York
+encoding: utf-8
+
+permalink: pretty
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor/
+  - node_modules/
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
