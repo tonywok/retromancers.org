@@ -65,6 +65,16 @@ section {
   max-width: 80ch;
 }
 
+.save-date {
+  align-items: center;
+  margin-block: var(--size-2);
+}
+
+.save-date img {
+  width: min(100%, 24rem);
+  height: auto;
+}
+
 h2 {
   font-weight: bold;
 }
