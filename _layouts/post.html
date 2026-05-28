@@ -24,5 +24,23 @@ layout: default
     <div class="post-content">
       {{ content }}
     </div>
+
+    {% if page.previous or page.next %}
+      <nav id="post-navigation" class="post-pagination" aria-label="Post navigation">
+        {% if page.previous %}
+          <a class="post-pagination__link" href="{{ page.previous.url | relative_url }}">
+            <span class="post-pagination__label">Older</span>
+            <span class="post-pagination__title">{{ page.previous.title }}</span>
+          </a>
+        {% endif %}
+
+        {% if page.next %}
+          <a class="post-pagination__link" href="{{ page.next.url | relative_url }}">
+            <span class="post-pagination__label">Newer</span>
+            <span class="post-pagination__title">{{ page.next.title }}</span>
+          </a>
+        {% endif %}
+      </nav>
+    {% endif %}
   </article>
 </main>
