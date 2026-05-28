@@ -3,8 +3,8 @@
   <head>
     {% include head.html %}
   </head>
-  <body>
-    <div class="container">
+  <body class="{% if page.layout == 'post' or page.url contains '/blog/' %}blog-body{% endif %}">
+    <div class="container{% if page.layout == 'post' or page.url contains '/blog/' %} blog-container{% endif %}">
       {{ content }}
 
       <hr>
