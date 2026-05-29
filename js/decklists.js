@@ -4,6 +4,11 @@
   var cardDialogTitle;
   var cardDialogLink;
   var cardPrintCache = {};
+  var requestQueue = Promise.resolve();
+  var requestDelay = 120;
+  var requestPausedUntil = 0;
+  var hoverPreviewDelay = 220;
+  var cachePrefix = "retromancers:scryfall-card:";
   var premodernSetQuery = [
     "4ed", "ice", "chr", "hom", "all", "mir", "vis", "5ed", "por", "wth",
     "tmp", "sth", "exo", "p02", "usg", "ulg", "6ed", "uds", "ptk", "s99",
@@ -28,12 +33,12 @@
     };
   }
 
-  function scryfallImageUrl(card) {
+  function scryfallApiUrl(card) {
     if (card.set && card.number) {
-      return "https://api.scryfall.com/cards/" + encodeURIComponent(card.set) + "/" + encodeURIComponent(card.number) + "?format=image&version=normal";
+      return "https://api.scryfall.com/cards/" + encodeURIComponent(card.set) + "/" + encodeURIComponent(card.number);
     }
 
-    var url = "https://api.scryfall.com/cards/named?format=image&version=normal&exact=" + encodeURIComponent(card.name);
+    var url = "https://api.scryfall.com/cards/named?exact=" + encodeURIComponent(card.name);
 
     if (card.set) {
       url += "&set=" + encodeURIComponent(card.set);
@@ -58,36 +63,95 @@
     return "https://api.scryfall.com/cards/search?unique=prints&order=released&dir=desc&q=" + encodeURIComponent('!"' + card.name + '" (' + premodernSetQuery + ")");
   }
 
+  function readStoredCard(cacheKey) {
+    try {
+      return JSON.parse(window.localStorage.getItem(cachePrefix + cacheKey));
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function storeCard(cacheKey, card) {
+    try {
+      window.localStorage.setItem(cachePrefix + cacheKey, JSON.stringify(card));
+    } catch (error) {
+      // Storage can be unavailable in private browsing; previews still work.
+    }
+  }
+
+  function queuedFetchJson(url) {
+    requestQueue = requestQueue
+      .catch(function () {})
+      .then(function () {
+        return new Promise(function (resolve) {
+          window.setTimeout(resolve, requestDelay);
+        });
+      })
+      .then(function () {
+        var retryAfter;
+        var rateLimited = false;
+        var responseFailed = false;
+
+        if (Date.now() < requestPausedUntil) {
+          throw new Error("Scryfall requests paused");
+        }
+
+        return fetch(url).then(function (response) {
+          if (!response.ok) {
+            responseFailed = true;
+            retryAfter = parseInt(response.headers.get("retry-after"), 10);
+
+            if (response.status === 429) {
+              rateLimited = true;
+              requestPausedUntil = Date.now() + ((retryAfter || 30) * 1000);
+            }
+
+            throw new Error("Scryfall request failed");
+          }
+
+          return response.json();
+        }).catch(function (error) {
+          if (!responseFailed && !rateLimited && (!requestPausedUntil || Date.now() >= requestPausedUntil)) {
+            requestPausedUntil = Date.now() + 30000;
+          }
+
+          throw error;
+        });
+      });
+
+    return requestQueue;
+  }
+
+  function resolvedFromApiCard(apiCard) {
+    var imageUrl = cardImageFromApi(apiCard);
+
+    if (!apiCard || !imageUrl) throw new Error("No Scryfall image found");
+
+    return {
+      imageUrl: imageUrl,
+      pageUrl: apiCard.scryfall_uri
+    };
+  }
+
   function resolveCard(card) {
     var cacheKey = [card.name, card.set || "", card.number || ""].join("|");
+    var storedCard = readStoredCard(cacheKey);
 
-    if (card.set || card.number) {
-      return Promise.resolve({
-        imageUrl: scryfallImageUrl(card),
-        pageUrl: scryfallCardUrl(card)
-      });
+    if (storedCard && storedCard.imageUrl) {
+      return Promise.resolve(storedCard);
     }
 
     if (!cardPrintCache[cacheKey]) {
-      cardPrintCache[cacheKey] = fetch(premodernApiSearchUrl(card))
-        .then(function (response) {
-          if (!response.ok) throw new Error("No Premodern printing found");
-          return response.json();
-        })
+      cardPrintCache[cacheKey] = queuedFetchJson(card.set || card.number ? scryfallApiUrl(card) : premodernApiSearchUrl(card))
         .then(function (payload) {
-          var printing = payload.data && payload.data[0];
-          var imageUrl = printing && cardImageFromApi(printing);
+          var resolvedCard = resolvedFromApiCard(payload.data ? payload.data[0] : payload);
 
-          if (!printing || !imageUrl) throw new Error("No Premodern image found");
-
-          return {
-            imageUrl: imageUrl,
-            pageUrl: printing.scryfall_uri
-          };
+          storeCard(cacheKey, resolvedCard);
+          return resolvedCard;
         })
         .catch(function () {
           return {
-            imageUrl: scryfallImageUrl(card),
+            imageUrl: "",
             pageUrl: scryfallCardUrl(card)
           };
         });
@@ -148,10 +212,12 @@
     cardDialogTitle.textContent = card.name;
     cardDialogImage.alt = card.name;
     cardDialogImage.removeAttribute("src");
+    delete cardDialogImage.dataset.cardKey;
+    delete cardDialogImage.dataset.cardLoaded;
+    delete cardDialogImage.dataset.cardLoading;
     cardDialogLink.href = scryfallCardUrl(card);
 
-    resolveCard(card).then(function (resolvedCard) {
-      cardDialogImage.src = resolvedCard.imageUrl;
+    hydrateCardPreview(cardDialogImage, card, function (resolvedCard) {
       cardDialogLink.href = resolvedCard.pageUrl;
     });
 
@@ -215,6 +281,7 @@
     if (link.dataset.cardPreviewReady) return;
 
     var card = parseCardSpec(cardSpec);
+    var hoverTimer;
 
     link.classList.add("card-pop");
     link.dataset.cardPreviewReady = "true";
@@ -231,30 +298,78 @@
     preview.className = "card-pop__preview";
 
     var image = document.createElement("img");
-    image.alt = card.name;
+    image.alt = "";
+    image.decoding = "async";
     image.loading = "lazy";
 
     preview.appendChild(image);
     link.appendChild(preview);
 
-    resolveCard(card).then(function (resolvedCard) {
-      image.src = resolvedCard.imageUrl;
-      link.href = resolvedCard.pageUrl;
-    });
-
-    link.addEventListener("mouseenter", function () {
+    function showPreview() {
+      hydrateCardPreview(image, card, function (resolvedCard) {
+        link.href = resolvedCard.pageUrl;
+      });
       positionPreview(link);
-    });
+      link.classList.add("card-pop--visible");
+    }
+
+    function queuePreview() {
+      window.clearTimeout(hoverTimer);
+      hoverTimer = window.setTimeout(showPreview, hoverPreviewDelay);
+    }
+
+    function hidePreview() {
+      window.clearTimeout(hoverTimer);
+      link.classList.remove("card-pop--visible");
+    }
+
+    link.addEventListener("mouseenter", queuePreview);
+
+    link.addEventListener("mouseleave", hidePreview);
 
     link.addEventListener("focusin", function () {
-      positionPreview(link);
+      queuePreview();
     });
+
+    link.addEventListener("focusout", hidePreview);
 
     link.addEventListener("click", function (event) {
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
       event.preventDefault();
       showCardDialog(card);
+    });
+  }
+
+  function hydrateCardPreview(image, card, afterResolve) {
+    var cacheKey = [card.name, card.set || "", card.number || ""].join("|");
+
+    if (image.dataset.cardKey !== cacheKey) {
+      image.dataset.cardKey = cacheKey;
+      delete image.dataset.cardLoaded;
+      delete image.dataset.cardLoading;
+    }
+
+    if (image.dataset.cardLoaded) {
+      if (afterResolve) {
+        resolveCard(card).then(afterResolve);
+      }
+      return;
+    }
+
+    if (image.dataset.cardLoading) return;
+
+    image.dataset.cardLoading = "true";
+
+    resolveCard(card).then(function (resolvedCard) {
+      delete image.dataset.cardLoading;
+
+      if (resolvedCard.imageUrl) {
+        image.src = resolvedCard.imageUrl;
+        image.dataset.cardLoaded = "true";
+      }
+
+      if (afterResolve) afterResolve(resolvedCard);
     });
   }
 
