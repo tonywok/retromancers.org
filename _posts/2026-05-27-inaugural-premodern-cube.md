@@ -17,13 +17,13 @@ Fast forward to Monday, May 25th, 2026, Memorial Day. A few of us were finally a
 
 ## Match 1: Andy – BW Smokestack
 
-I love ya Andy, but you drafted the most oppressive Black/White list I have seen in a while. [[Smokestack]], [[Armageddon]], [[Weathered Wayfarer]]. A brutal little trio that ensured I had zero land on board after my upkeep. It got to the point where I had zero islands left in the deck, and the only cards in my hand required blue mana. My favorite sequence in this match was him playing [[Gerrard’s Verdict]], forcing me to pitch the only two cards in my hand, which were 2 lands, to then use the life he gained to get a free Snuff Out on my only threat left. The scoop was soon after that. Oh well, quick 0-2 smackdown.
+I love ya Andy, but you drafted the most oppressive Black/White list I have seen in a while. [[Smokestack]], [[Armageddon]], [[Weathered Wayfarer]]. A brutal little trio that ensured I had zero land on board after my upkeep. It got to the point where I had zero islands left in the deck, and the only cards in my hand required blue mana. My favorite sequence in this match was him playing [[Gerrard’s Verdict]], forcing me to pitch the only two cards in my hand, which were 2 lands, to then use the life he gained to get a free [[Snuff Out]] on my only threat left. The scoop was soon after that. Oh well, quick 0-2 smackdown.
 
 <p class="match-record">(0-1)</p>
 
 ## Match 2: Connor – UBr Oops No Wincon
 
-So, for some context, Connor was to my right and happened to steal every blue card that I wanted, or so it seemed. His deck was centered around bouncing things like his own Ravenous Rats, causing me to dump my hand, using [[Arctic Merfolk]] and [[Man-o’-War]], but I am sure that he was hoping the [[Waterfront Bouncer]] that I had would wheel back to him. Luckily, I was able to stay above the Rack that he had and was able to squeeze this one out in game 3. Definitely a grind-fest, as is typical every time I play Connor. Somehow, I have a ridiculous lifetime record against him, despite him being a much better player than I am. The tides will turn one day, and I will never beat him again.
+So, for some context, Connor was to my right and happened to steal every blue card that I wanted, or so it seemed. His deck was centered around bouncing things like his own [[Ravenous Rats]], causing me to dump my hand, using [[Arctic Merfolk]] and [[Man-o’-War]], but I am sure that he was hoping the [[Waterfront Bouncer]] that I had would wheel back to him. Luckily, I was able to stay above the Rack that he had and was able to squeeze this one out in game 3. Definitely a grind-fest, as is typical every time I play Connor. Somehow, I have a ridiculous lifetime record against him, despite him being a much better player than I am. The tides will turn one day, and I will never beat him again.
 
 <p class="match-record">(1-1)</p>
 
