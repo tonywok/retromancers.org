@@ -210,7 +210,7 @@
     var dialog = ensureCardDialog();
 
     cardDialogTitle.textContent = card.name;
-    cardDialogImage.alt = card.name;
+    cardDialogImage.alt = "";
     cardDialogImage.removeAttribute("src");
     delete cardDialogImage.dataset.cardKey;
     delete cardDialogImage.dataset.cardLoaded;

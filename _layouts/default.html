@@ -3,7 +3,7 @@
   <head>
     {% include head.html %}
   </head>
-  <body class="{% if page.layout == 'post' or page.url contains '/blog/' %}blog-body{% endif %}">
+  <body class="{% if page.url == '/' %}home-body{% endif %}{% if page.layout == 'post' or page.url contains '/blog/' %} blog-body{% endif %}">
     <div class="container{% if page.layout == 'post' or page.url contains '/blog/' %} blog-container{% endif %}">
       {{ content }}
 

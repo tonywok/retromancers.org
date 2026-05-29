@@ -2,7 +2,6 @@
 layout: post
 author: Retromancers
 title : Decklist Preview
-published: false
 tags  : misc
 ---
 

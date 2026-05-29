@@ -4,11 +4,15 @@ title: Viashino Scrolls
 ---
 
 <main class="post-shell">
-  <nav class="post-nav" aria-label="Site navigation">
-    <a class="post-nav__brand" href="/">
-      <img class="post-nav__mark" src="/images/retromancer-mini.jpg" alt="">
-      <span>Home</span>
+  <nav class="post-nav" aria-label="Breadcrumb">
+    <a class="post-nav__mark-link" href="{{ '/' | relative_url }}" aria-label="Home">
+      <img class="post-nav__mark" src="{{ '/images/retromancer-mini.jpg' | relative_url }}" alt="">
     </a>
+    <ol class="post-nav__breadcrumb">
+      <li><a href="{{ '/' | relative_url }}">Home</a></li>
+      <li aria-hidden="true">&gt;</li>
+      <li><a aria-current="page" href="{{ '/blog/' | relative_url }}">Blog</a></li>
+    </ol>
   </nav>
 
   <section class="blog-index">
