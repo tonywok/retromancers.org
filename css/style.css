@@ -254,19 +254,29 @@ h3 {
 }
 
 .home-body .cta {
-  font-family: var(--font-monospace-slab-serif);
-  font-size: var(--font-size-1);
-  font-weight: var(--font-weight-7);
-  letter-spacing: 0.04em;
+  display: grid;
+  gap: var(--size-2);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: 0;
 }
 
+.home-body .cta::before,
+.home-body .cta::after {
+  display: none;
+}
+
 .home-body .cta a {
+  border: 2px solid var(--ink);
+  display: block;
+  font-family: var(--font-monospace-slab-serif);
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-7);
+  padding: var(--size-2) var(--size-3);
   text-decoration: none;
 }
 
 .home-body .cta a:hover {
-  text-decoration: underline;
+  background: var(--soft-bg);
 }
 
 .links {
@@ -839,5 +849,9 @@ footer {
 
   .post-content img {
     box-shadow: 6px 6px 0 var(--accent);
+  }
+
+  .home-body .cta {
+    grid-template-columns: 1fr;
   }
 }
