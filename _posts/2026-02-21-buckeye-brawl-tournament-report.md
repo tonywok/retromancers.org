@@ -6,8 +6,6 @@ date  : 2026-02-21
 tags  : misc
 ---
 
-## GW Oath Ponza to the Top 8
-
 The Buckeye Brawl was a huge success, and I’m incredibly appreciative of everyone who helped make it happen. Players and crews traveled to Ohio from Michigan, Indiana, Kentucky, West Virginia, Pennsylvania, and New Mexico(!), and the atmosphere was outstanding.
 
 The Premodern community has a penchant for charity-focused events ran by the community, and the Retromancers intended to continue that endeavor. The charity raffle was a massive hit and, together with the bake sale, raised a significant amount of money for the Mid-Ohio Food Collective. We also received donations from several different crews, which once again proved that the Premodern community is the best in Magic.
