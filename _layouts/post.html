@@ -25,7 +25,14 @@ layout: default
       </p>
     </header>
 
-    <div class="post-content">
+    <aside class="post-toc" data-post-toc hidden>
+      <details class="post-toc__details">
+        <summary class="post-toc__summary">Table of contents</summary>
+        <ol class="post-toc__list" data-post-toc-list></ol>
+      </details>
+    </aside>
+
+    <div class="post-content" data-post-content>
       {{ content }}
     </div>
 
