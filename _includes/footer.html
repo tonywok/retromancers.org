@@ -1,9 +1,21 @@
-<footer>
-  <div class="l-stack t-center">
-    <span class="l-cluster l-cluster--sm">
-      <img class="logo-mini" src="{{ '/images/retromancer-mini.jpg' | relative_url }}" title="Retromancers" alt="Retromancers">
-      <span class="t-nowrap">Retromancers &copy; 2003</span>
-    </span>
-    <em class="t-sm">Logo art by Grant</em>
+<footer class="site-footer">
+  <div class="site-footer-brand">
+    <a class="site-footer-home" href="{{ '/' | relative_url }}">
+      <img class="logo-mini" src="{{ '/images/retromancer-mini.jpg' | relative_url }}" alt="">
+      <span>Retromancers</span>
+    </a>
+    <p>Premodern Magic in Columbus, Ohio.</p>
+    <p>Registered <span class="t-nowrap">501(c)(3)</span> nonprofit</p>
+    <div class="site-footer-credits t-sm">
+      <span>Retromancers &copy; {{ site.time | date: '%Y' }}</span>
+      <em>Logo art by Grant</em>
+    </div>
   </div>
+  <nav aria-label="Resources" class="site-footer-resources">
+    <h2>Resources</h2>
+    <ul>
+      <li><a href="https://premodernmagic.com" target="_blank" rel="noopener">premodernmagic.com</a></li>
+      <li><a href="mailto:webmaster@retromancers.org">Contact</a></li>
+    </ul>
+  </nav>
 </footer>
