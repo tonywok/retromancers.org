@@ -428,7 +428,7 @@ footer {
 
 .post-hero h1 {
   font-family: var(--font-antique);
-  font-size: clamp(1.75rem, 8.5cqi, 4rem);
+  font-size: clamp(1.75rem, 6.5cqi, 3rem);
   font-weight: var(--font-weight-8);
   letter-spacing: 0;
   line-height: var(--font-lineheight-00);
@@ -1117,7 +1117,7 @@ footer {
   }
 
   .post-hero h1 {
-    font-size: clamp(1.75rem, 8.5cqi, 2.8rem);
+    font-size: clamp(1.75rem, 6.5cqi, 2.4rem);
   }
 
   .post-content img {
