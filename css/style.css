@@ -428,7 +428,7 @@ footer {
 
 .post-hero h1 {
   font-family: var(--font-antique);
-  font-size: clamp(2rem, 10cqi, 4.75rem);
+  font-size: clamp(1.75rem, 8.5cqi, 4rem);
   font-weight: var(--font-weight-8);
   letter-spacing: 0;
   line-height: var(--font-lineheight-00);
@@ -790,7 +790,7 @@ footer {
   border: 2px solid var(--ink);
   box-shadow: 10px 10px 0 var(--accent);
   display: block;
-  margin: var(--size-8) 0 var(--size-4);
+  margin: var(--size-8) 0;
   width: min(100%, 780px);
 }
 
@@ -1117,7 +1117,7 @@ footer {
   }
 
   .post-hero h1 {
-    font-size: clamp(2rem, 10cqi, 3.3rem);
+    font-size: clamp(1.75rem, 8.5cqi, 2.8rem);
   }
 
   .post-content img {
